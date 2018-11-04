@@ -1,0 +1,331 @@
+WEBVTT
+
+00:00.390 --> 00:04.110
+It this video you're going to learn how to set up a static directory.
+
+00:04.110 --> 00:09.690
+So if you have a Web site with TMLC access javascript and images you can go ahead and serve that up
+
+00:09.840 --> 00:15.500
+without needing to provide a custom route for every single file which would be a real burden.
+
+00:15.510 --> 00:17.270
+Now setting this up is really simple.
+
+00:17.310 --> 00:22.860
+But before we make any updates to server dot J.S. I want to go ahead and create some static assets inside
+
+00:22.860 --> 00:25.240
+of our project that we can actually set up.
+
+00:25.260 --> 00:27.050
+In this case we're going to make one.
+
+00:27.090 --> 00:27.370
+H.
+
+00:27.370 --> 00:30.270
+TMF page that will be able to view in the browser.
+
+00:30.630 --> 00:35.160
+Before we get started we do need to create a new directory and everything inside of this directory is
+
+00:35.160 --> 00:37.300
+going to be accessible via the web server.
+
+00:37.410 --> 00:42.300
+So it's important to not put anything in here that you don't want prying eyes to see everything in here
+
+00:42.330 --> 00:45.710
+should be intended to be viewable by anybody.
+
+00:45.750 --> 00:50.720
+I'm going to create a public folder to store all of our static assets and inside of here we're going
+
+00:50.710 --> 00:53.280
+to go ahead and make an HMO page.
+
+00:53.460 --> 01:00.810
+I'm going to create a health page for our example project by creating a file called Help dot HVM.
+
+01:00.950 --> 01:05.990
+Now in here we are going to make a quick basic HVM file although I'm not going to touch on all of the
+
+01:05.990 --> 01:09.790
+subtleties of HVM Al since this is not really an H Tim L course.
+
+01:09.830 --> 01:15.200
+Instead we're going to go ahead and just set up a basic page so take a quick moment to follow along.
+
+01:15.200 --> 01:19.740
+The first thing we need to do is create a doc type which lets the browser know what version of each
+
+01:19.750 --> 01:26.540
+team malware using that's going to look something like this doc type after the opening tag as well as
+
+01:26.540 --> 01:29.010
+the exclamation mark here.
+
+01:29.270 --> 01:35.750
+We just type doc type in upper case then we go ahead and provide the actual doc type for h tim L5 the
+
+01:35.750 --> 01:36.570
+latest version.
+
+01:36.590 --> 01:41.670
+You just type H TNL then we can use the greater then sign to close things up.
+
+01:42.540 --> 01:48.770
+Down below we're going to go ahead and open up our HMO tags so we can define our entire H.A. file.
+
+01:49.760 --> 01:57.050
+Open and close inside of HVM Alvar's two tags we're going to be using the head to tag which lets us
+
+01:57.050 --> 02:01.920
+configure our doc and the body tag which contains everything we want to render to the screen.
+
+02:02.000 --> 02:04.150
+I'm going to go ahead and create that hed tag first
+
+02:07.630 --> 02:08.670
+inside of head.
+
+02:08.710 --> 02:10.900
+We're going to provide two pieces of info.
+
+02:10.900 --> 02:15.900
+First up we have to set up the char set which lets the browser know how to render our characters.
+
+02:15.940 --> 02:25.350
+Here we're going to go ahead and set Metta and on Metta we're going to set the char set property using
+
+02:25.350 --> 02:30.330
+equals and inside of quotes providing the value UTF hyphen 8.
+
+02:30.330 --> 02:35.820
+Next up we're going to provide the title tag the title tag lets the browser know what to render in that
+
+02:35.820 --> 02:38.460
+title bar where the new tab usually is.
+
+02:38.520 --> 02:40.680
+In this case we can set the title to whatever we like.
+
+02:40.800 --> 02:42.660
+Help page seems appropriate.
+
+02:42.660 --> 02:44.740
+Help page.
+
+02:44.910 --> 02:48.870
+Now that our head is configured we can go ahead and add something to the body of our Web site.
+
+02:48.870 --> 02:53.820
+This is the stuff that's actually going to be viewable inside of the viewport right here.
+
+02:53.820 --> 03:02.600
+I'm going to open and close the body tag and inside of body I'll provide an H-1 title and AP paragraph
+
+03:02.660 --> 03:03.520
+tag.
+
+03:03.950 --> 03:11.230
+The title is going to match the title we use up above help page perfect and the paragraph will just
+
+03:11.230 --> 03:12.580
+have some filler text.
+
+03:13.880 --> 03:17.320
+Some text here.
+
+03:17.470 --> 03:18.210
+Very cool.
+
+03:18.340 --> 03:24.100
+Now we have an h t m l page and the goal is to be able to serve this page up in our express app without
+
+03:24.100 --> 03:26.020
+having to manually configure it.
+
+03:26.050 --> 03:31.630
+We're going to do that using a piece of express middleware middleware lets you configure how your express
+
+03:31.630 --> 03:32.890
+application works.
+
+03:32.890 --> 03:36.170
+And it's something we'll be using extensively throughout the course for now.
+
+03:36.280 --> 03:38.720
+You can think of it kind of like a third party add on.
+
+03:38.740 --> 03:41.470
+You're saying Hey express you usually work like this.
+
+03:41.470 --> 03:46.300
+I'd like you to tweak a little bit and work like this in order to add some middleware.
+
+03:46.300 --> 03:52.150
+We're going to call app dot use outdoor use it takes the middleware function you want to use.
+
+03:52.270 --> 03:55.660
+In our case we're going to be using a built in piece of middleware.
+
+03:55.660 --> 04:01.690
+So inside of here we'll be providing the function off of the express object we will be making our own
+
+04:01.690 --> 04:06.490
+middleware in this section so don't worry I promise it'll become clear exactly what's getting passed
+
+04:06.520 --> 04:08.350
+into use in a little bit.
+
+04:08.380 --> 04:15.060
+For now we're going to pass an express dot static and we're going to call it as a function now express
+
+04:15.070 --> 04:20.020
+that static takes the absolute path to the folder you want to serve up if we want to be able to serve
+
+04:20.020 --> 04:21.570
+up forward slash help.
+
+04:21.580 --> 04:24.220
+We're going to need to provide the path to the public folder.
+
+04:24.220 --> 04:28.660
+This means we need to specify the path from the root of our hard drive which can be tricky because your
+
+04:28.660 --> 04:29.980
+projects move around.
+
+04:29.980 --> 04:34.810
+Luckily we have that underscore underscore Durer name and variable.
+
+04:34.840 --> 04:40.510
+This is the variable that gets passed into our file by that wrapper function we explored the name it
+
+04:40.510 --> 04:43.060
+stores the path to your projects directory.
+
+04:43.060 --> 04:45.980
+In this case it stores the path to node web server.
+
+04:46.030 --> 04:52.330
+All we have to do is concatenate forward slash public to tell it to use this directory for our server.
+
+04:52.660 --> 04:59.740
+I'm going to concatenate using the plus sign the string forwards slash public with this in place we
+
+04:59.740 --> 05:00.700
+are now done.
+
+05:00.700 --> 05:03.930
+We have our server set up and there's nothing else to do.
+
+05:03.940 --> 05:08.140
+Now we should be able to restart our server and access forward slash help.
+
+05:08.170 --> 05:11.440
+HGF now and we should see the page we have right here.
+
+05:13.550 --> 05:19.170
+Over in the terminal I can now start the app using gnomon server J S.
+
+05:19.490 --> 05:21.900
+Once the app is up and running we can visit it in the browser.
+
+05:22.010 --> 05:26.990
+I'm going to start by going to localhost three thousand.
+
+05:27.040 --> 05:29.910
+Here we get our Jason data which is exactly what we expect.
+
+05:29.980 --> 05:33.580
+And if we change that you are able to forward slash help.
+
+05:33.610 --> 05:36.770
+H TNL we should get our help page rendering.
+
+05:36.850 --> 05:39.020
+And that is exactly what we get.
+
+05:39.130 --> 05:43.870
+Right here we have our help page showing to the screen we have the help page title and the some text
+
+05:43.870 --> 05:51.010
+here paragraph down below it being able to set up a static directory that easily has made node the go
+
+05:51.010 --> 05:55.050
+to choice for simple projects that don't really require a back end.
+
+05:55.330 --> 06:00.010
+If you want to create a node app for the sole purpose of serving up a directory you can do it in about
+
+06:00.010 --> 06:01.300
+four lines of code.
+
+06:01.330 --> 06:04.780
+These three here and the line down below.
+
+06:04.780 --> 06:07.230
+Now one more thing I want to talk about is this call to app.
+
+06:07.420 --> 06:10.650
+Listen listen does take a second argument.
+
+06:10.660 --> 06:11.860
+It's optional.
+
+06:11.860 --> 06:13.080
+It's a function.
+
+06:13.090 --> 06:17.170
+This will let us do something once the server is up because it can take a little bit of time to get
+
+06:17.170 --> 06:17.920
+started.
+
+06:17.950 --> 06:26.380
+In our case we're going to cancel that log a message server is up on port three thousand.
+
+06:26.380 --> 06:31.150
+Now it's really clear to the person who started the app that the server is actually ready to go because
+
+06:31.150 --> 06:33.030
+the message is going to print to the screen.
+
+06:33.280 --> 06:36.970
+If I save server J ass and go back into the terminal you can see right here.
+
+06:37.000 --> 06:42.490
+Server is up on port 3000 Prince and back inside of the browser we can refresh and we get the exact
+
+06:42.580 --> 06:44.010
+same results.
+
+06:44.020 --> 06:44.990
+That's it for this one.
+
+06:45.010 --> 06:50.770
+We don't have a static directory where we can include javascript CSSA images or any other file types
+
+06:50.770 --> 06:55.210
+we like in the next video we're going to continue on learning how to use Express.
+
+06:55.240 --> 07:00.160
+We're going to take a look at how we can render dynamic templates kind of like you would with a ph P
+
+07:00.160 --> 07:02.200
+or Ruby on Rails file.
+
+07:02.290 --> 07:06.390
+You have some variables and you want to render a template injecting those variables.
+
+07:06.520 --> 07:07.480
+That's coming up next.
+
+07:07.540 --> 07:08.410
+So stay tuned.
+
+07:08.420 --> 07:09.860
+I will see you then.

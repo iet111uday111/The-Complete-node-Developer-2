@@ -1,0 +1,889 @@
+WEBVTT
+
+00:00.700 --> 00:06.270
+In this video you're going to learn an easy no nonsense way to test your express applications.
+
+00:06.270 --> 00:11.600
+That means we can verify that when we make an HTP GET request to the following You are L..
+
+00:11.670 --> 00:14.530
+We get the hello world response back.
+
+00:14.550 --> 00:19.540
+Now traditionally testing HTP apps has been one of the more difficult things to test.
+
+00:19.620 --> 00:21.980
+You would have to fire up a server like we do here.
+
+00:22.110 --> 00:26.550
+Then you would need some code to actually make the request to the appropriate u r l and then you'd have
+
+00:26.550 --> 00:31.380
+to dig through the response getting what you want and making assertions about it whether it's hetero's
+
+00:31.380 --> 00:33.710
+the status code or the body or anything else.
+
+00:33.750 --> 00:38.250
+It is a real burden and that is not the goal for this section.
+
+00:38.250 --> 00:40.800
+The goal here is to make testing easy and approachable.
+
+00:40.830 --> 00:47.950
+So we're going to use a library called super test to test our express applications super test was created
+
+00:47.950 --> 00:50.700
+by the developers who originally created Express.
+
+00:50.770 --> 00:56.980
+It has built in support for Express and it makes testing your express apps dead simple in order to get
+
+00:56.980 --> 00:57.340
+started.
+
+00:57.340 --> 01:01.090
+Let's go ahead and pull up the docs page so you know where it lives if you ever want to look at any
+
+01:01.090 --> 01:03.070
+other features that it has to offer.
+
+01:03.160 --> 01:06.610
+If you google super test it should be the first result.
+
+01:06.790 --> 01:11.710
+It's the vision media repository and the repository itself is called Super Test.
+
+01:11.710 --> 01:16.870
+I'm going to switch over to the repository page and we can take a quick look at what it has to offer.
+
+01:17.050 --> 01:20.310
+Down below we can find installation instructions and introduction stuff.
+
+01:20.320 --> 01:21.630
+We don't really need that.
+
+01:21.640 --> 01:24.670
+Let's go ahead and take a quick look at an example right here.
+
+01:24.700 --> 01:27.320
+We have an example of how super test works.
+
+01:27.370 --> 01:31.790
+We created an express application just like we normally would and we define a route.
+
+01:31.930 --> 01:39.130
+Then we make a call to the request method which is provided by super test passing in our express application.
+
+01:39.220 --> 01:41.960
+We say we want to make a request of the following You are al.
+
+01:42.010 --> 01:44.380
+Then we start making assertions right here.
+
+01:44.530 --> 01:48.750
+There's no need to manually check either the headers the status code or the body.
+
+01:48.790 --> 01:52.420
+It has a built in assertions for all of that to get started.
+
+01:52.420 --> 01:57.100
+We're going to go ahead and install it in our application by running NPM install from the terminal.
+
+01:57.100 --> 01:58.850
+I have my node server still running.
+
+01:58.870 --> 02:01.640
+I'm going to shut that down and we can use NPM.
+
+02:01.660 --> 02:09.430
+I if the module name is super test and we're going to be grabbing the most recent version at two point
+
+02:09.430 --> 02:15.400
+zero point zero this is a task specific module so I'm not going to be installing it with save.
+
+02:15.490 --> 02:23.380
+I'm going to use save dev to add it to my dev dependencies and package dot Jason with Super Test installed.
+
+02:23.380 --> 02:26.840
+We are now ready to start filling out that server tasks.
+
+02:26.860 --> 02:32.850
+JS file and now it doesn't yet exist inside of the server folder so we can go ahead and create it right
+
+02:32.850 --> 02:33.320
+now.
+
+02:33.540 --> 02:35.160
+It's going to sit just alongside.
+
+02:35.160 --> 02:38.870
+Server dodginess server ADOT test dot.
+
+02:38.960 --> 02:40.020
+J.S..
+
+02:40.140 --> 02:41.010
+Awesome.
+
+02:41.140 --> 02:45.930
+Now that we had this in place we can start setting up our very first test up at the very top I am going
+
+02:45.930 --> 02:53.070
+to be creating a constant called request and setting that equal to the return result from requiring
+
+02:53.160 --> 02:54.660
+super test.
+
+02:54.660 --> 02:59.350
+And this is the main method we we're going to be using to test our express apps.
+
+02:59.550 --> 03:03.610
+From here we can go ahead and load in the Express application.
+
+03:03.610 --> 03:07.640
+Now inside of server G-S we don't have an export that exports the app.
+
+03:07.710 --> 03:14.670
+So we're going to have to add that I'm going to add it down below by creating module exports dot app
+
+03:15.750 --> 03:20.160
+and setting that equal to the app variable awesome.
+
+03:20.290 --> 03:24.420
+And now we have an export called app that we can access from other files.
+
+03:24.430 --> 03:27.640
+The server is still going to run as expected when we started from the terminal.
+
+03:27.700 --> 03:28.940
+Not in test mode.
+
+03:28.990 --> 03:30.260
+We just added an export.
+
+03:30.280 --> 03:37.210
+So if anyone happens to require it they can get access to that app over inside of server tasks.
+
+03:37.300 --> 03:37.830
+J.S..
+
+03:37.990 --> 03:40.840
+I'm going to import this.
+
+03:40.930 --> 03:42.820
+I'm going to make a variable.
+
+03:42.970 --> 03:45.020
+I'm going to call the variable app.
+
+03:45.400 --> 03:47.950
+Then we're going to go ahead and require using require
+
+03:50.850 --> 03:59.380
+dot forward slash server J.S. or just server and then I'm going to access the dot app property.
+
+03:59.380 --> 04:00.410
+Awesome.
+
+04:00.540 --> 04:04.570
+With this in place we don't have everything we need to write our very first test.
+
+04:04.680 --> 04:10.110
+The first test we're going to write is a test that verifies when we make an h t t p get request to the
+
+04:10.110 --> 04:11.850
+following you R-AL we get.
+
+04:11.880 --> 04:14.440
+Hello world back to do this.
+
+04:14.520 --> 04:17.000
+We will be calling it just like we did for other tests.
+
+04:17.010 --> 04:20.790
+We're still using Moka as the actual test framework.
+
+04:20.940 --> 04:23.870
+We're using super test to fill in the gaps.
+
+04:23.860 --> 04:32.130
+It should return hello world response perfect.
+
+04:32.260 --> 04:34.060
+Now I'm going to set up my function.
+
+04:34.120 --> 04:39.070
+This is going to be an asynchronous call so I will be providing done as the argument to let Moken know
+
+04:39.220 --> 04:43.350
+to wait before determining whether or not the test passed or failed.
+
+04:43.450 --> 04:50.870
+From here we can now make our very first call to request to use super test you call request passing
+
+04:50.870 --> 04:53.520
+in the actual express application.
+
+04:53.570 --> 04:58.760
+In this case we pass in the app variable then we can start chaining together all of the methods we need
+
+04:58.940 --> 05:03.350
+to make the request make our assertions and finally wrap things up.
+
+05:03.380 --> 05:10.700
+First up you're going to be using a method to actually make that request whether it's a get put delete
+
+05:11.030 --> 05:12.220
+or a post.
+
+05:12.220 --> 05:17.530
+We'll be talking about all of those in the next section when we create a full blown rest API.
+
+05:17.720 --> 05:20.190
+For now we're going to be making a get request.
+
+05:20.240 --> 05:26.380
+So we will use dot get don't get takes the U R L right here.
+
+05:26.390 --> 05:30.400
+We'll provide forward slash just as we did over insurge Yes.
+
+05:31.870 --> 05:33.940
+Next up that we can go ahead and make some assertions.
+
+05:33.940 --> 05:35.290
+We've already made the request.
+
+05:35.290 --> 05:38.420
+There's nothing more left to do to make assertions.
+
+05:38.420 --> 05:44.890
+We're going to use dot expect no doubt expect is one of those methods that does different things depending
+
+05:44.890 --> 05:46.400
+on what you pass to it.
+
+05:46.420 --> 05:48.910
+In our case we'll be passing in a string.
+
+05:49.240 --> 05:53.120
+I'm going to pass in this string which will be the response body that we assert.
+
+05:53.650 --> 05:55.820
+Hello world.
+
+05:55.850 --> 05:58.340
+With an exclamation mark at the end.
+
+05:58.340 --> 06:02.690
+And now that we're done and we've made our assertions we can go ahead and wrap things up to wrap up
+
+06:02.900 --> 06:04.790
+a request in super test.
+
+06:04.790 --> 06:10.070
+All you do is you call DOT and passing in done as the callback.
+
+06:10.070 --> 06:15.020
+This handles everything behind the scenes so you don't need to manually call done at a later point in
+
+06:15.020 --> 06:15.530
+time.
+
+06:15.590 --> 06:17.640
+All of it is handled by super test.
+
+06:17.750 --> 06:23.050
+And with these four lines we have successfully tested our very first API requests.
+
+06:23.300 --> 06:28.850
+I'm going to go ahead and kick things off over in the terminal by running our test watch script and
+
+06:29.220 --> 06:38.260
+run test Python watch the test script is starting and right here we have some tests.
+
+06:38.330 --> 06:43.070
+We have our test should return hello world response showing up right here.
+
+06:43.070 --> 06:46.640
+Everything went great and this is fantastic.
+
+06:46.640 --> 06:50.780
+Now we can take things a step further and making other assertions about the data that comes back.
+
+06:50.780 --> 06:57.230
+For example I can go ahead and use expect right here to make an assertion about the status code by default
+
+06:57.260 --> 07:02.680
+all of your express calls are going to return 200 status code which means that things went OK.
+
+07:02.780 --> 07:05.450
+And if I saved the file the test still passes.
+
+07:05.450 --> 07:09.260
+Now let's go ahead and make some changes to the request to make these tests.
+
+07:09.290 --> 07:11.780
+They'll burst up in server.
+
+07:11.820 --> 07:14.530
+Yes I'm just going to add a few characters to the string.
+
+07:14.570 --> 07:17.200
+I'll add a few extra W's and I'll save the file.
+
+07:17.210 --> 07:23.240
+This should cause these super test test to fail and it does indeed do that right here we get a message
+
+07:23.510 --> 07:25.780
+we expected hello world response body.
+
+07:25.910 --> 07:26.500
+But we got.
+
+07:26.510 --> 07:28.400
+Hello world.
+
+07:28.410 --> 07:33.680
+This is letting us know exactly what happened and back inside of the server.
+
+07:33.790 --> 07:37.620
+Yes we can remove those extra W's and try something else.
+
+07:37.670 --> 07:43.160
+Now we haven't talked about how to set a custom status for your response but we can do that with one
+
+07:43.220 --> 07:43.890
+method.
+
+07:43.940 --> 07:46.630
+Dot status just like this.
+
+07:46.760 --> 07:49.240
+And we can change it on before send.
+
+07:49.400 --> 07:52.320
+And we can pass in the numerical status code.
+
+07:52.370 --> 07:58.520
+For example I could use a 404 for page not found if I saved the file this time around.
+
+07:58.580 --> 08:02.650
+The body is going to match up but over in the terminal you can see we now have a different error.
+
+08:02.840 --> 08:07.180
+We expected a 200 but we got a 4 0 for using super task.
+
+08:07.190 --> 08:10.670
+We can make all sorts of assertions about our application.
+
+08:10.670 --> 08:13.820
+Now the same thing is true for different types of responses.
+
+08:13.880 --> 08:20.210
+For example I'm going to go ahead and create an object as the response let's make a simple object and
+
+08:20.210 --> 08:26.300
+we'll create a property called error and we'll set error equal to a generic error message for a 4 or
+
+08:26.300 --> 08:30.990
+4 something like page not found.
+
+08:31.000 --> 08:36.310
+Now we're sending back a Jason body but currently we're not making any assertions about that body so
+
+08:36.310 --> 08:38.000
+the test is going to fail.
+
+08:38.020 --> 08:43.410
+We can go ahead and update our tests to expect Jason to come back in order to get that done.
+
+08:43.420 --> 08:49.980
+All we have to do over inside of server test is change what we pass to expect instead of passing in
+
+08:49.990 --> 08:50.770
+a string.
+
+08:50.770 --> 08:52.920
+I'm going to go ahead and pass in an object.
+
+08:52.960 --> 08:55.870
+Now we can match up that object exactly here.
+
+08:55.990 --> 09:02.530
+I'm going to go ahead and expect that the error property exists and that it equals exactly what we have
+
+09:02.530 --> 09:03.190
+here.
+
+09:03.190 --> 09:09.240
+Page Not Found capital-T page not found with a period at the end.
+
+09:09.580 --> 09:14.980
+With this in place our assertions now match up with the actual endpoint we've defined over inside of
+
+09:14.980 --> 09:16.660
+the Express application.
+
+09:16.660 --> 09:21.490
+I should be able to save the file and watch all my tests pass over in the terminal.
+
+09:21.490 --> 09:23.270
+You can see we are still getting an error.
+
+09:23.410 --> 09:25.640
+We expected a 200 but got a 4 or 4.
+
+09:25.810 --> 09:27.190
+I forgot to tweak that.
+
+09:27.280 --> 09:30.970
+So I will change this expect call to a 404.
+
+09:30.970 --> 09:36.430
+Now this should cause a new refresh of the tests and this time everything should be passing.
+
+09:36.460 --> 09:41.920
+If I scroll down you can see it is indeed passing should return hello world response is passing.
+
+09:41.920 --> 09:46.380
+It took about 41 milliseconds to complete and that is perfectly fine.
+
+09:47.470 --> 09:52.740
+Well a lot of the built in assertions do get the job done for the majority of cases there are times
+
+09:52.740 --> 09:54.310
+where you want a little more flexibility.
+
+09:54.310 --> 09:58.200
+For example we just learned about all those cool assertions I expect can make.
+
+09:58.300 --> 10:03.860
+We can use to include to exclude all of that stuff is really handy and it's a shame to lose it.
+
+10:03.930 --> 10:10.240
+Well luckily there's a lot of flexibility with super test what we can do instead of taking an object
+
+10:10.240 --> 10:13.660
+and passing it into aspect or a number for the status code.
+
+10:13.720 --> 10:15.930
+We can go ahead and provide a function.
+
+10:16.270 --> 10:21.490
+This function is going to get called by super test and it's going to get past the response.
+
+10:21.490 --> 10:27.280
+This means we can access headers abody anything we want to access from the HTP response is going to
+
+10:27.280 --> 10:32.230
+be available right here and we can pipe it through the regular expect assertion library like we've been
+
+10:32.230 --> 10:33.390
+doing before.
+
+10:33.730 --> 10:40.940
+I'm going to go ahead and load it in creating a constant called expect in sending an equal to require
+
+10:40.940 --> 10:42.260
+expect.
+
+10:42.350 --> 10:43.840
+Awesome.
+
+10:43.850 --> 10:47.990
+Now before we look at how it's going to work we're going to go ahead and make a change in server dot
+
+10:48.060 --> 10:48.890
+J.S..
+
+10:48.920 --> 10:51.580
+What I want to do is add a second property on to here.
+
+10:51.650 --> 10:54.510
+I'm going to add an error and then I'll add something else.
+
+10:54.510 --> 11:01.310
+I'm going to go ahead and use name setting equal to the application name to do app the one at point
+
+11:01.370 --> 11:02.230
+zero.
+
+11:02.720 --> 11:07.460
+Now that we have this in place we can take a look at how we can use those custom assertions over inside
+
+11:07.550 --> 11:10.030
+of our test file right here.
+
+11:10.100 --> 11:14.690
+We're going to have access to the response and on the response there is a body property like we've seen
+
+11:14.690 --> 11:15.520
+in the past.
+
+11:15.560 --> 11:20.630
+This is going to be a javascript object with key value pairs which means we would expect to have an
+
+11:20.630 --> 11:26.320
+error property and a name property which we set right here back inside of our test file.
+
+11:26.320 --> 11:33.660
+We can make a custom assertion using expect I'm going to expect something about the body response dot
+
+11:33.710 --> 11:34.660
+body.
+
+11:34.670 --> 11:39.710
+Now I can go ahead and use any assertion I like not just the equals assertion which is the only one
+
+11:39.740 --> 11:41.240
+super test supports.
+
+11:41.240 --> 11:45.260
+I'm going to go ahead and use that to include assertion.
+
+11:45.260 --> 11:51.410
+Remember to include lets you specify a subset of the properties on the object as long as it has those
+
+11:51.410 --> 11:52.240
+ones that's fine.
+
+11:52.240 --> 11:54.170
+It doesn't matter that it has extra ones.
+
+11:54.170 --> 12:00.050
+In our case we can go ahead and inside of to include just specify the error message leaving off the
+
+12:00.050 --> 12:01.880
+fact that name exists at all.
+
+12:04.050 --> 12:11.260
+I want to check that error equals page not found formatted exactly like we have it over inside of server.
+
+12:11.340 --> 12:17.490
+Yes now when I go ahead and save the file back inside of the terminal things restart and all of my tests
+
+12:17.490 --> 12:18.290
+are passing.
+
+12:18.360 --> 12:20.370
+This is fantastic.
+
+12:20.370 --> 12:28.930
+Using a combination of super test and expect we can have super flexible test suites for our HTP endpoints.
+
+12:29.040 --> 12:33.510
+With this in place it is now time for a challenge where you're going to create your very own express
+
+12:33.510 --> 12:38.590
+route and you're going to define a test that makes sure it works as expected.
+
+12:38.660 --> 12:40.190
+There's going to be two sides to this.
+
+12:40.190 --> 12:42.130
+The actual set up in Cervidae.
+
+12:42.210 --> 12:43.490
+Yes and the test.
+
+12:43.490 --> 12:45.310
+We can start inside of server.
+
+12:45.470 --> 12:47.100
+Yes down here.
+
+12:47.210 --> 12:48.580
+You're gonna make a new route.
+
+12:48.590 --> 12:51.520
+I'll leave a few comments to specify exactly what I'd like.
+
+12:51.740 --> 12:57.360
+It's going to be an HTP get route the route itself will be forward slash users and we can just assume
+
+12:57.410 --> 12:59.640
+this returns an array of users.
+
+12:59.750 --> 13:05.550
+You can pass an array back through the send method just like we do an object here.
+
+13:05.660 --> 13:09.830
+Now this array is going to be an array of objects where each object is a user.
+
+13:09.830 --> 13:20.350
+For now I want you to give users give users a name property and an age prompt.
+
+13:20.570 --> 13:23.590
+Go ahead and create two or three users for this example.
+
+13:23.630 --> 13:29.780
+You can just add yourself and out some of your friends putting in the first name and the age as props.
+
+13:29.810 --> 13:33.920
+Now once you have this done you're going to be responsible for writing a test that asserts it works
+
+13:33.950 --> 13:34.980
+as expected.
+
+13:35.030 --> 13:37.900
+That's going to happen over in server dot test dot.
+
+13:37.900 --> 13:39.560
+J.S. down below.
+
+13:39.590 --> 13:45.200
+You're going to make a new test make a new test and this test is going to assert a couple of things.
+
+13:45.200 --> 13:52.850
+First up I want you to assert that the status code that comes back is a two hundred assert 200 and I
+
+13:52.850 --> 13:58.310
+want to make an assertion that inside of that array your user object exists and you're going to do that
+
+13:58.370 --> 14:06.100
+using to include assert that you exist in user's array.
+
+14:06.170 --> 14:09.600
+Now it's perfectly fine if there are other users I've told you to add them.
+
+14:09.680 --> 14:15.140
+What's really important though is that you just test that your user exists and object in the array with
+
+14:15.140 --> 14:17.030
+the first name equal to whatever you set.
+
+14:17.090 --> 14:21.470
+That's the name Propp and the age equal to whatever you set as well.
+
+14:21.530 --> 14:24.120
+Once that's in place go ahead and run the test suite.
+
+14:24.230 --> 14:26.450
+Make sure your new test is passing.
+
+14:26.450 --> 14:28.570
+If it is fantastic you are done.
+
+14:28.610 --> 14:30.290
+You can go ahead and click play.
+
+14:30.290 --> 14:30.950
+Take a moment.
+
+14:30.950 --> 14:37.200
+Knock that out and when you're done click play.
+
+14:37.220 --> 14:37.870
+How'd you do.
+
+14:37.970 --> 14:43.660
+Hopefully you are able to make not only the end point but also the test using super test.
+
+14:43.880 --> 14:49.540
+I'm going to define the end point first over inside of server dot J.S. just above the comments I'll
+
+14:49.540 --> 14:56.480
+call app get so we can register the brand new HTP endpoint for our application and this one is going
+
+14:56.480 --> 14:59.470
+to be at forward slash users.
+
+14:59.480 --> 15:03.780
+Next up we're going to specify the callback that takes both request and response.
+
+15:03.800 --> 15:09.260
+This is going to let us actually respond to the request and the goal here was just to respond with an
+
+15:09.260 --> 15:10.000
+array.
+
+15:10.010 --> 15:16.320
+In this case I'm going to call response and send passing in an array of objects.
+
+15:16.400 --> 15:18.250
+The first object will be someone else.
+
+15:18.260 --> 15:25.000
+I'll set the name equal to my friend Mike's name and we'll set his age equal to 27.
+
+15:25.220 --> 15:26.180
+Then I can add another one.
+
+15:26.180 --> 15:29.120
+This one will be me.
+
+15:29.170 --> 15:37.780
+I'm going to add the second object to the array with a name equal to Andrew and an age equal to 25 and
+
+15:37.780 --> 15:46.900
+the last one will do I'll set the name equal to Jan and the age equal to twenty six.
+
+15:47.040 --> 15:47.940
+Perfect.
+
+15:47.940 --> 15:52.590
+Now obviously we're using static data here but in the next section we're going to start creating a real
+
+15:52.620 --> 15:54.650
+API with real data.
+
+15:54.690 --> 15:58.680
+So it's important to learn how to test with static data so we don't have to learn two things at the
+
+15:58.680 --> 15:59.670
+same time.
+
+15:59.700 --> 16:05.340
+Now that we have our endpoint done we can go ahead and save server dot us move into server dot test
+
+16:05.370 --> 16:12.210
+dot J us and start worrying about actually creating our test case just below the comments you needed
+
+16:12.210 --> 16:13.840
+to start things out by calling it.
+
+16:13.860 --> 16:16.090
+It is the only way to make a new test.
+
+16:16.180 --> 16:23.890
+It should return my user object.
+
+16:23.890 --> 16:26.920
+Then I'm going to go ahead and specify the callback function.
+
+16:26.920 --> 16:32.620
+It is going to get past that done argument because remember this one is going to be a synchronous to
+
+16:32.620 --> 16:34.780
+kick things off inside of the test case.
+
+16:34.780 --> 16:40.600
+I will be calling a request just like we did up above passing in the Express application and now we
+
+16:40.600 --> 16:42.910
+can go ahead and set up the actual call.
+
+16:42.970 --> 16:46.990
+In this case we're just making a call a get request to the following.
+
+16:46.990 --> 16:48.850
+You are all inside of quotes.
+
+16:48.850 --> 16:51.920
+Forward slash users.
+
+16:51.920 --> 16:56.420
+Next up we can start making our assertions and the first thing you supposed to assert is that the status
+
+16:56.420 --> 17:01.050
+code is a 200 which is the default status code used by express.
+
+17:01.100 --> 17:07.220
+I can assert that by calling and expect and passing in the status code as a number in this case I'll
+
+17:07.220 --> 17:10.120
+pass in at 200 after this.
+
+17:10.190 --> 17:13.100
+I want you to use a custom expect assertion.
+
+17:13.100 --> 17:17.420
+This means that you're going to call expect passing in a function and you're going to use to include
+
+17:17.450 --> 17:21.890
+inside of it to make the assertion that you exist in that user's array.
+
+17:22.770 --> 17:23.460
+I'm going to call.
+
+17:23.460 --> 17:29.240
+Expect the method passing in the function and that function will get called with the response.
+
+17:29.280 --> 17:34.200
+This is going to let us make some assertions about the response what we're actually going to do is make
+
+17:34.200 --> 17:41.040
+an assertion using expect we're going to expect something about the response body in this case.
+
+17:41.100 --> 17:45.540
+We'll be checking that it includes using to include our user object.
+
+17:45.540 --> 17:49.170
+Now remember you can call to include on both arrays and objects.
+
+17:49.170 --> 17:50.710
+We've used the object one here.
+
+17:50.790 --> 17:54.150
+We have used the array one previously but we'll use it again right now.
+
+17:54.240 --> 17:57.960
+All we do is pass and the item we want to confirm is in the array.
+
+17:58.020 --> 18:02.090
+In our case it's an object where the name property equals Andrew.
+
+18:02.100 --> 18:06.100
+Use your name there and the age property equals whatever age you put.
+
+18:06.270 --> 18:10.430
+I'm going to go ahead and put 2005 which is what I use over inside a server Dhananjay.
+
+18:10.470 --> 18:11.440
+Yes.
+
+18:11.490 --> 18:17.810
+Now that we have our customers expect call in place at the very bottom we can call DOT and this is going
+
+18:17.810 --> 18:23.420
+to wrap up the request and we can go ahead and pass in Dunhams the callback so we can properly fire
+
+18:23.420 --> 18:26.110
+off those errors if any actually occurred.
+
+18:26.270 --> 18:29.180
+And with this in place we are ready to get going.
+
+18:29.180 --> 18:33.000
+I'm going to go ahead and save the file over inside of the terminal.
+
+18:33.020 --> 18:35.310
+You can see the tests are indeed rerunning.
+
+18:35.330 --> 18:36.650
+We have a test right here.
+
+18:36.650 --> 18:38.540
+Should return my user object.
+
+18:38.540 --> 18:39.600
+It is passing.
+
+18:39.620 --> 18:41.600
+That is fantastic.
+
+18:41.600 --> 18:46.530
+Now we can confirm that we're not going crazy and testing the wrong thing by just messing up the data.
+
+18:46.550 --> 18:52.250
+If I add a lowercase after the uppercase one in Andrew the test fails you can see that over in the terminal
+
+18:52.250 --> 18:53.870
+and this is fantastic.
+
+18:53.930 --> 18:57.410
+And now we have testing for our express apps.
+
+18:57.500 --> 19:01.030
+Now we will be using Express extensively in the next couple of sections.
+
+19:01.040 --> 19:07.010
+For now though we're going to talk about one more way we can test our node code that is coming up next
+
+19:07.070 --> 19:08.090
+so stay tuned.
+
+19:08.110 --> 19:09.540
+I will see you then.

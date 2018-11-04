@@ -1,0 +1,670 @@
+WEBVTT
+
+00:00.260 --> 00:05.340
+It now that you have a local get repository we're going to look at how we can take that code and push
+
+00:05.340 --> 00:10.590
+it up to a third party service called Get hub get how that is going to let us host our repositories
+
+00:10.590 --> 00:11.460
+remotely.
+
+00:11.460 --> 00:13.810
+So if our machine never crashes we can get our code back.
+
+00:13.920 --> 00:19.050
+And it also has great collaboration tools so we can open source a project letting others use our code
+
+00:19.200 --> 00:20.660
+or we can keep it private.
+
+00:20.730 --> 00:24.540
+So only people we choose to collaborate with can see the source code.
+
+00:24.700 --> 00:29.190
+Now in order to actually communicate between our machine and get how we're going to have to create something
+
+00:29.190 --> 00:35.120
+called an S-sh key S-sh keys were designed to securely communicate between two computers.
+
+00:35.190 --> 00:38.620
+In this case it's going to be our machine and the get hub server.
+
+00:38.660 --> 00:43.170
+This is going to let us confirm that get hub is who they say they are and it's going to like get help
+
+00:43.170 --> 00:47.270
+confirm that we indeed have access to the code we're trying to alter.
+
+00:47.290 --> 00:51.720
+This is all going to be done with S-sh keys and we're going to create them first then we'll configure
+
+00:51.720 --> 00:57.900
+them and finally we'll push our code up to get up the process of setting up S-sh keys can be a real
+
+00:57.900 --> 00:58.620
+burden.
+
+00:58.620 --> 01:03.300
+This is one of those videos I have in most of my courses and it often gets the most questions because
+
+01:03.300 --> 01:07.740
+there's really small room for error if you type any of the commands wrong things are just not going
+
+01:07.740 --> 01:08.850
+to work as expected.
+
+01:08.850 --> 01:13.090
+So if you pay attention closely to any video let it be this one.
+
+01:13.110 --> 01:18.270
+Now if you're on Windows you're going to need to do everything I do in this video from a get bash as
+
+01:18.270 --> 01:22.710
+opposed to the regular command prompt because we're going to be using some commands that just are not
+
+01:22.710 --> 01:24.030
+available on Windows.
+
+01:24.030 --> 01:26.730
+They are however available on Linux and Mac.
+
+01:26.730 --> 01:31.020
+So if you're using either of those operating systems you can continue using the terminal you've been
+
+01:31.020 --> 01:32.900
+using throughout the course.
+
+01:32.970 --> 01:37.800
+Before we dive into the commands I want to show you a quick guide that exists online in case you get
+
+01:37.860 --> 01:46.290
+stuck or you have any questions you can google get hub S-sh key is and this is going to link you to
+
+01:46.290 --> 01:52.050
+an article called that generating an S-sh key and once you're here you'll be able to click this S-sh
+
+01:52.110 --> 01:52.880
+breadcrumb.
+
+01:53.040 --> 01:56.340
+And this is going to bring you back to all of their articles on S-sh keys.
+
+01:56.340 --> 02:00.900
+These four right here the nested four are the ones we're going to be focusing on checking if we have
+
+02:00.900 --> 02:04.480
+a key generating a new key adding the key to get.
+
+02:04.500 --> 02:07.650
+And finally testing that everything worked as expected.
+
+02:07.650 --> 02:12.600
+If you run into any problems along any of these steps you can always click the guide for that step and
+
+02:12.600 --> 02:14.650
+you can pick the operating system you're using.
+
+02:14.670 --> 02:18.370
+So you can see the appropriate commands for that OS.
+
+02:18.660 --> 02:21.820
+Now that you know this exists let's go ahead and do it together.
+
+02:21.900 --> 02:25.920
+The first command we're going to run from the terminal is going to check if we have an existing S-sh
+
+02:25.920 --> 02:26.540
+key.
+
+02:26.550 --> 02:28.330
+Now if you don't that's fine.
+
+02:28.350 --> 02:29.540
+We're going to go ahead and create one.
+
+02:29.580 --> 02:34.170
+If you do or you're not sure you do you can run the following command to confirm whether or not you
+
+02:34.170 --> 02:37.890
+have one ls with the a al flag.
+
+02:37.890 --> 02:43.260
+This is going to print all of the files in a given directory and the directory were S-sh keys are stored
+
+02:43.260 --> 02:47.580
+by default on your machine is going to be at the user directory which you can use.
+
+02:47.580 --> 02:52.100
+Tell us a shortcut for forward slash dot S-sh.
+
+02:52.380 --> 02:56.880
+When you run the command you're going to see all of the contents inside of that S-sh directory.
+
+02:57.030 --> 03:01.790
+In this case I've deleted all of my S-sh keys so I have nothing inside in my directory.
+
+03:01.830 --> 03:05.320
+I just have a path for the current directory and the previous one.
+
+03:05.490 --> 03:09.750
+Now that we have this in place and we've confirmed we don't have a key we can go ahead and generate
+
+03:09.750 --> 03:10.040
+one.
+
+03:10.050 --> 03:16.710
+If you do already have a key a file like ID underscore RSA You can go ahead and skip the process of
+
+03:16.710 --> 03:19.110
+generating the key to make a key.
+
+03:19.140 --> 03:23.080
+We're going to use the S-sh hyphen key Jeon command.
+
+03:23.250 --> 03:25.040
+Now the S-sh hyphen key.
+
+03:25.050 --> 03:32.100
+Jan with an end the command takes three arguments we're going to pass in the setting equal to RSA.
+
+03:32.160 --> 03:34.290
+We're going to pass in B which is for bytes.
+
+03:34.320 --> 03:36.710
+Setting that equal to 42 96.
+
+03:36.780 --> 03:38.810
+Make sure to match these arguments exactly.
+
+03:38.910 --> 03:44.490
+And we're going to be setting a capital C flag which is going to get set equal to your e-mail.
+
+03:44.490 --> 03:48.940
+Now the scope of what's actually happening behind the scenes is not part of this course.
+
+03:48.960 --> 03:54.010
+S-sh keys and setting up security that could be an entire course in and of itself.
+
+03:54.120 --> 03:57.830
+We're going to be using this command to simplify the entire process right here.
+
+03:57.990 --> 03:59.130
+I'm going to type in my email.
+
+03:59.160 --> 04:03.190
+Andrew Joseph Meade at gmail dot com.
+
+04:03.210 --> 04:04.320
+Perfect.
+
+04:04.320 --> 04:09.980
+Now I can go ahead and hit enter which is going to generate two new files in our S-sh folder.
+
+04:10.170 --> 04:13.400
+When you run this command you're going to get greeted with a few steps.
+
+04:13.500 --> 04:15.560
+I want you to use the default for all of them.
+
+04:15.720 --> 04:18.420
+Here they want to ask you if you want to customize the file name.
+
+04:18.420 --> 04:20.100
+I do not recommend doing that.
+
+04:20.100 --> 04:21.500
+You can just hit enter.
+
+04:21.510 --> 04:24.500
+Next up they ask you for a passphrase which we're not going to use.
+
+04:24.570 --> 04:28.190
+I'm going to hit enter for no passphrase then I need to confirm the passphrase.
+
+04:28.210 --> 04:33.510
+So I'll just hit enter again and right here we get a little message that our S-sh key was properly created
+
+04:33.720 --> 04:36.110
+and that it was indeed saved in our folder.
+
+04:36.120 --> 04:41.580
+You can see that right here with this in place I can now cycle back through my previous commands running
+
+04:41.580 --> 04:42.800
+that last command.
+
+04:42.810 --> 04:51.960
+And what do I get I get ID underscore RSA and I get the ID underscore RSA a pub file the RSA file contains
+
+04:51.960 --> 04:53.520
+the private key.
+
+04:53.520 --> 04:58.070
+This is the key you should never give to anyone it lives on your machine and your machine only if the
+
+04:58.070 --> 05:00.540
+DOT pugged file that is the public file.
+
+05:00.540 --> 05:05.170
+This one is the one you're going to give to third party services like get hub or Heroku which you'll
+
+05:05.170 --> 05:07.390
+be doing in the next several videos.
+
+05:07.440 --> 05:12.780
+Now that our keys are generated the last thing we need to do is start up the S-sh agent and add this
+
+05:12.780 --> 05:15.030
+key so it knows that it exists.
+
+05:15.060 --> 05:17.550
+We're going to do this by running two commands.
+
+05:17.550 --> 05:25.410
+First up we're going to run evil then we're going to open some quotes inside of here we'll use the dollar
+
+05:25.410 --> 05:29.240
+sign and open and close some parentheses just like this.
+
+05:29.430 --> 05:37.400
+And inside of our parentheses we're going to type S-sh hyphen agent space with the flag.
+
+05:37.440 --> 05:42.420
+This is going to start up the SS agent program and it's also going to print the process id to confirm
+
+05:42.420 --> 05:43.500
+it is indeed running.
+
+05:43.620 --> 05:50.280
+And right here we get Agent PD 1 6 5 4 7 the process ID is obviously going to be different as long as
+
+05:50.280 --> 05:51.610
+you get something back like this.
+
+05:51.630 --> 05:53.180
+You are good to go.
+
+05:53.190 --> 06:00.260
+Next up we have to tell the S-sh agent where this file lives we're going to do that using S-sh hyphen.
+
+06:00.380 --> 06:07.050
+And this takes the path to our private key file which we have in the user directory forward Slashdot
+
+06:07.110 --> 06:11.550
+S-sh forward slash ID underscore RSA.
+
+06:11.550 --> 06:14.840
+When I run this I should get a message like identity added.
+
+06:14.880 --> 06:20.220
+This means that the local machine now knows about this public private key pair and it will try to use
+
+06:20.220 --> 06:24.300
+these credentials when it communicates with a third party service like get hub.
+
+06:24.630 --> 06:27.600
+Now that we have this in place we are ready to configure get hub.
+
+06:27.690 --> 06:31.350
+We're going to make an account set it up and it will come back here and test that things are working
+
+06:31.530 --> 06:33.470
+as expected.
+
+06:33.500 --> 06:38.990
+And now let's head into the browser and go to get hub dot com here we'll be able to log into our existing
+
+06:38.990 --> 06:41.410
+account or create a new one if you need a new one.
+
+06:41.420 --> 06:43.740
+Fill out this form if you have an existing one.
+
+06:43.760 --> 06:45.340
+Go ahead and sign an above.
+
+06:45.500 --> 06:49.430
+Take a moment to pause the video until you see the screen that I see here.
+
+06:49.460 --> 06:51.060
+This is your get hub dashboard.
+
+06:51.080 --> 06:52.880
+When you're done go ahead and click play
+
+06:56.190 --> 07:00.550
+all right I'm going to assume that you're seeing your dashboard from here we're going to navigate into
+
+07:00.550 --> 07:05.530
+these settings over here about the profile picture go down to settings and in there we're going to go
+
+07:05.530 --> 07:10.370
+to the S-sh page which is available under S-sh and g.p keys.
+
+07:10.480 --> 07:16.570
+From here we can add that public key letting get hub know that we want to communicate using S-sh.
+
+07:16.750 --> 07:19.900
+I'm going to add the new S-sh key and you need to do two things.
+
+07:19.900 --> 07:23.110
+One give it a name and the name can be anything you like.
+
+07:23.140 --> 07:26.950
+I usually use one that uniquely identifies my computer since I have a couple.
+
+07:27.220 --> 07:33.120
+I'm going to use MacBook Pro just like this.
+
+07:33.150 --> 07:36.170
+Next up we need to grab the contents of that ID.
+
+07:36.180 --> 07:42.420
+RSA pub file that contains the information that you get how needs in order to securely communicate between
+
+07:42.420 --> 07:44.880
+our machine and their machines.
+
+07:44.910 --> 07:50.730
+We can grab this using a few different methods over in the browser we have that adding a new S-sh key
+
+07:50.730 --> 07:52.550
+to your get help account article.
+
+07:52.670 --> 07:57.690
+This contains a command you can use to copy the contents of that file to your clipboard from right inside
+
+07:57.690 --> 07:58.560
+of the terminal.
+
+07:58.560 --> 08:02.900
+Now obviously it is different for Mac Windows and Linux.
+
+08:02.940 --> 08:05.880
+So go ahead and run the command for your operating system.
+
+08:05.880 --> 08:10.730
+You could also go ahead and open it up with a regular text editor and copy the contents of the file.
+
+08:10.730 --> 08:11.800
+It doesn't matter how you do it.
+
+08:11.970 --> 08:13.680
+All that matters is you do.
+
+08:13.680 --> 08:17.870
+I'm going to use the P.B. copy command which is available only on OS X.
+
+08:17.880 --> 08:23.740
+I'm going to move into the terminal and I'm going to run it this copies the contents of the file to
+
+08:23.740 --> 08:24.670
+the clipboard.
+
+08:24.670 --> 08:29.590
+Now I can move back in to get help click the text area and paste it in.
+
+08:29.710 --> 08:34.510
+Take a moment to copy the contents of the RSA pub paste it into the field.
+
+08:34.570 --> 08:39.380
+It should start with S-sh hyphen RSA and it should end with that email you used.
+
+08:39.490 --> 08:42.210
+Once you're done go ahead and click add S-sh.
+
+08:42.250 --> 08:43.540
+Take a moment to pause the video.
+
+08:43.540 --> 08:44.150
+Knocked out.
+
+08:44.170 --> 08:45.750
+And when you're done click play
+
+08:48.670 --> 08:53.390
+all right I'm going to assume at this point you have that S-sh key added to get a job.
+
+08:53.400 --> 08:57.880
+Now we can go ahead and test that things are working by running one command from the terminal.
+
+08:57.890 --> 09:01.210
+Once again this command can be executed from anywhere on your machine.
+
+09:01.220 --> 09:04.510
+You don't need to be in your project folder to do this.
+
+09:04.580 --> 09:07.320
+We're going to use S-sh which tries to make a connection.
+
+09:07.370 --> 09:09.730
+We're going to use the flag followed by the you are.
+
+09:09.730 --> 09:13.970
+We want to connect to get at it get hub dot com.
+
+09:14.030 --> 09:15.510
+This is going to test our connection.
+
+09:15.530 --> 09:19.910
+It's going to make sure that the S-sh keys are properly set up and we can securely communicate with
+
+09:19.910 --> 09:20.660
+get help.
+
+09:20.840 --> 09:26.420
+When I run the command I get a message saying that the authenticity of the host get how BCom can't be
+
+09:26.420 --> 09:27.530
+established.
+
+09:27.530 --> 09:29.730
+We know that we want to communicate with dot com.
+
+09:29.750 --> 09:33.770
+We're expecting that communication to happen so we can go ahead and hit yes.
+
+09:33.920 --> 09:36.970
+From here we get a message from the get hub servers.
+
+09:37.000 --> 09:41.120
+Hi Andrew J Mead which is my username you should see your username here.
+
+09:41.240 --> 09:46.760
+We have successfully authenticated but how does NOT provide Schale access if you are seeing this message
+
+09:46.790 --> 09:48.120
+then you are done.
+
+09:48.230 --> 09:52.070
+You're ready to create your first repository and push your code up.
+
+09:52.070 --> 09:55.250
+Now if you're not seeing this message something went wrong along the way.
+
+09:55.250 --> 09:59.780
+Maybe the S-sh key wasn't generated correctly or it's not getting recognized by yet.
+
+09:59.960 --> 10:03.550
+Go ahead and open a question in the Q&amp;A for this lecture.
+
+10:03.560 --> 10:05.220
+I would be happy to debug.
+
+10:05.240 --> 10:06.560
+I know this can be a real burden.
+
+10:06.560 --> 10:09.680
+It's pretty tricky to set up if you're seeing this message.
+
+10:09.730 --> 10:15.320
+What we're going to do is move in to get hub go back to the home page and we're going to create a new
+
+10:15.320 --> 10:16.880
+repository.
+
+10:16.880 --> 10:19.480
+Right here we have our new repository button.
+
+10:19.620 --> 10:21.340
+All we need to do is give it a name.
+
+10:21.470 --> 10:27.910
+I'm going to call this one node hyphen course to web server.
+
+10:28.020 --> 10:31.380
+Once you have an end you could give it an optional description and you can pick whether you want to
+
+10:31.380 --> 10:33.990
+go with a public or private repository.
+
+10:33.990 --> 10:37.420
+Now private repositories do put you on a seven dollar plan.
+
+10:37.440 --> 10:41.000
+I do recommend that if you're creating projects with companies.
+
+10:41.130 --> 10:45.030
+In this case though we're creating pretty simple projects and it doesn't really matter if someone else
+
+10:45.030 --> 10:45.980
+finds the code.
+
+10:45.990 --> 10:49.640
+So I'm going to go ahead and use a public repository by clicking that option.
+
+10:49.860 --> 10:53.970
+Once you have those two things filled out you can click Create repository and you're going to get brought
+
+10:53.970 --> 10:59.630
+to your repository page and it's giving you a little set up because currently there is no code to view.
+
+10:59.730 --> 11:03.370
+So it's giving you a few instructions depending on which situation you're in.
+
+11:03.450 --> 11:05.330
+The first one is for creating a new repository.
+
+11:05.340 --> 11:06.320
+We don't need that.
+
+11:06.420 --> 11:10.680
+And the last one is for importing our code from some other you are Alloa we're not going to do what
+
+11:10.680 --> 11:14.840
+we have is an existing repository and we want to push it from the command line.
+
+11:14.980 --> 11:18.420
+We're going to run these two commands from inside of our project.
+
+11:18.420 --> 11:22.530
+The first one adds a new remote to our Get repository remotes.
+
+11:22.570 --> 11:26.050
+Let get know which third party you are else you want to sync up with.
+
+11:26.130 --> 11:29.610
+Maybe I want to push my code to get help to communicate with my coworkers.
+
+11:29.700 --> 11:33.840
+Maybe I also want to be able to push up to Heroku to deploy my app.
+
+11:33.840 --> 11:35.490
+That means you would want two remotes.
+
+11:35.640 --> 11:42.080
+In our case we're just going to add one so I'm going to copy this you r l move into the terminal paste
+
+11:42.080 --> 11:43.080
+it and hit enter.
+
+11:44.510 --> 11:49.610
+Now that we have our get remote and we can go ahead and run that second command this second command
+
+11:49.610 --> 11:54.440
+which will be using extensively throughout the course is going to take our code and push it up to get
+
+11:54.440 --> 12:01.220
+hub in the terminal we can copy and paste the code run the command and right here we can see everything
+
+12:01.280 --> 12:02.160
+went great.
+
+12:02.210 --> 12:07.820
+We were able to successfully write all of our data up to get up and if we go back into the browser and
+
+12:07.820 --> 12:10.930
+refresh the page we're no longer going to see the set up instructions.
+
+12:10.930 --> 12:16.080
+Instead we're going to see our repository kind of like a treeview here I can see we have our server
+
+12:16.090 --> 12:17.780
+J S file which is great.
+
+12:17.810 --> 12:21.950
+I don't see the logfile or node modules which is good because we ignored that.
+
+12:21.970 --> 12:23.170
+I have my public directory.
+
+12:23.180 --> 12:25.730
+Everything works really really well.
+
+12:25.730 --> 12:28.170
+We also have issue tracking poll requests.
+
+12:28.190 --> 12:31.580
+You can create a wiki which lets you set up instructions for your repository.
+
+12:31.580 --> 12:34.410
+There's a lot of really great features that get hub has to offer.
+
+12:34.430 --> 12:37.110
+There are entire courses dedicated to using get hub.
+
+12:37.280 --> 12:41.630
+So I'd recommend checking one of those out we're going to be using just the very basic features over
+
+12:41.630 --> 12:42.020
+here.
+
+12:42.110 --> 12:47.660
+You can see we have one commit and if you click that one commit button you can actually go to the commit
+
+12:47.660 --> 12:52.070
+page and here we see the initial commit message that we typed when we made that commit.
+
+12:52.130 --> 12:56.900
+This is going to let us keep track of all of our code revert if we make unwanted changes and manage
+
+12:56.900 --> 12:58.790
+our repository.
+
+12:58.790 --> 13:00.370
+Now though we have our code pushed up.
+
+13:00.380 --> 13:05.810
+We are done in the next video we're going to look at how we can communicate with Heroku to deploy our
+
+13:05.810 --> 13:06.460
+code.
+
+13:06.480 --> 13:12.350
+Then after that we'll look at some real world workflows for creating new commits pushing to get hub
+
+13:12.350 --> 13:17.540
+and deploying to Heroku by the end of this section you'll be a master at the process so fear not as
+
+13:17.540 --> 13:20.780
+long as you're able to see your code here then you are all set up.
+
+13:20.780 --> 13:23.690
+You'll never need to touch those S-sh keys again.
+
+13:23.750 --> 13:24.310
+Stay tuned.
+
+13:24.310 --> 13:25.890
+I will see you next time.

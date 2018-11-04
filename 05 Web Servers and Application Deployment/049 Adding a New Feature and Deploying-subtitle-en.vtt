@@ -1,0 +1,382 @@
+WEBVTT
+
+00:00.270 --> 00:05.220
+In this video Your challenge is going to be to go through the entire development lifecycle from having
+
+00:05.220 --> 00:07.110
+an idea to deploying it.
+
+00:07.110 --> 00:09.220
+You're going to create the code locally.
+
+00:09.270 --> 00:14.550
+You'll be testing it locally then you're going to make a commit push it up to get hub and finally deploy
+
+00:14.550 --> 00:17.430
+it to Heroku where it'll be visible live on the web.
+
+00:17.430 --> 00:18.680
+That is the entire process.
+
+00:18.690 --> 00:23.940
+I want you to run through now whether you're using get hub in a Roku or other services the process is
+
+00:23.940 --> 00:25.280
+still really similar.
+
+00:25.290 --> 00:29.640
+So it's a good idea to get comfortable going through this process early on as it's something you'll
+
+00:29.640 --> 00:32.480
+be doing when you're adding new features.
+
+00:32.490 --> 00:36.770
+Your challenge is going to be to add a new projects page to our Web site.
+
+00:36.780 --> 00:40.280
+This page is a place where later on you can link to your get have projects.
+
+00:40.350 --> 00:44.790
+That means you're going to need to register a new you are all down below and we're going to be rendering
+
+00:44.790 --> 00:48.050
+a handlebars template you off to create that you are.
+
+00:48.110 --> 00:50.430
+It's going to be a forward slash projects.
+
+00:50.430 --> 00:56.280
+You also need to make that view file and in the view file kind of like we do for home and about.
+
+00:56.280 --> 01:01.590
+I want you to render everything including the header and footer and inside of the actual Web site you
+
+01:01.590 --> 01:08.430
+can just render a message like Portfolio page here inside of the Parshall's header file.
+
+01:08.430 --> 01:12.320
+I also want you to add a new link for the new projects page.
+
+01:12.420 --> 01:16.350
+So when you're on the home page you can go to projects and when you're on the projects page you can
+
+01:16.350 --> 01:19.720
+go to home or about wherever you like.
+
+01:19.740 --> 01:24.180
+Now once you're done and you have tested this locally meaning you've opened it up on localhost three
+
+01:24.180 --> 01:29.430
+thousand and you can see the projects page you're ready to make that comment go ahead and make that
+
+01:29.430 --> 01:31.720
+commit then push it up to get hub.
+
+01:31.860 --> 01:37.650
+The last step in the process is going to be to push it up to that Heroku remote using get Pusch Heroku
+
+01:37.740 --> 01:39.910
+which is going to deploy it live to the web.
+
+01:39.960 --> 01:44.820
+Once you're done you can open up your app inside of the browser and I want you to check to make sure
+
+01:44.820 --> 01:47.920
+the project's page shows up as expected.
+
+01:48.910 --> 01:51.340
+We've gone through all these steps before but take your time.
+
+01:51.340 --> 01:53.010
+There is no rush.
+
+01:53.020 --> 01:56.150
+Once you have things ready you can go ahead and click play
+
+01:59.240 --> 02:00.080
+how to go.
+
+02:00.240 --> 02:04.590
+Hopefully you are able to go through that entire process without too much trouble.
+
+02:04.590 --> 02:09.960
+We're going to get started by creating the local changes that means I'm going to register a new u r
+
+02:09.960 --> 02:16.630
+l right here using app dot get we're going to create a new page of forward slash projects which is why
+
+02:16.630 --> 02:24.070
+I have that as the route for my HTP get handler inside of the second argument we can specify our callback
+
+02:24.070 --> 02:30.880
+function which we'll get called with request and response and like we do for the other routes above
+
+02:30.880 --> 02:36.840
+the route route and are about route we're going to be calling response dot render to render our template
+
+02:38.440 --> 02:40.680
+inside of the render arguments list.
+
+02:40.690 --> 02:43.540
+We're going to provide two the first one will be the file name.
+
+02:43.600 --> 02:46.460
+The file doesn't exist but we can still go ahead and call Rander.
+
+02:46.540 --> 02:54.090
+I'm going to call it projects dot B.S. And then we can specify the options we want to pass to the template.
+
+02:54.240 --> 03:00.660
+In this case we're just going to set page title setting and equal to projects with a capital P.
+
+03:00.680 --> 03:01.760
+Excellent.
+
+03:01.760 --> 03:05.920
+Now with this in place the server file is all done there's no more changes there.
+
+03:05.930 --> 03:11.840
+What I am going to do is go ahead and go to the views directory creating a new file called Projects
+
+03:12.880 --> 03:17.830
+HB abs in here we'll be able to configure our template to kick things off.
+
+03:17.830 --> 03:21.340
+I'm going to copy the template from the About page sense it's really similar.
+
+03:21.520 --> 03:29.860
+I'll copy it close about pasted into projects and I'm just going to change this text to project page
+
+03:30.190 --> 03:31.550
+text would go here.
+
+03:32.780 --> 03:38.640
+Then we can save the file and make our last change and the last thing we want to do is update the header.
+
+03:38.660 --> 03:43.190
+We now have a brand new projects page that lives at forward slash projects.
+
+03:43.190 --> 03:47.580
+So we're going to want to go ahead and add that to the header links list right here.
+
+03:47.600 --> 03:54.000
+I mean to create a new paragraph tag and then I'm going to make a anchor tag.
+
+03:54.880 --> 04:01.270
+The text for the link will be projects with a capital P and the graph which is the u r l to visit when
+
+04:01.270 --> 04:02.390
+that link is clicked.
+
+04:02.410 --> 04:07.690
+We're going to set that equal to forward slash projects just like we do for about where we set it equal
+
+04:07.690 --> 04:11.210
+to forward slash about now that we have this in place.
+
+04:11.350 --> 04:16.270
+All of our changes are done and we are ready to test things out locally.
+
+04:16.480 --> 04:21.810
+I'm going to fire up the app locally using node with server dot jast as the file to start.
+
+04:21.940 --> 04:27.280
+We're up on localhost 3000 so over in the browser I can move to the localhost tab as opposed to the
+
+04:27.280 --> 04:30.310
+Heroku app tab and click refresh right here.
+
+04:30.310 --> 04:32.220
+We have home which goes to home.
+
+04:32.230 --> 04:37.810
+We have about which goes to about and we have projects which does indeed go to forward slash projects
+
+04:38.020 --> 04:44.930
+rendering the projects page project page text would go here with this in place we're now done locally.
+
+04:45.010 --> 04:46.050
+We have the changes.
+
+04:46.060 --> 04:47.140
+We've tested them.
+
+04:47.170 --> 04:49.360
+Now it's time to go ahead and make that commit.
+
+04:49.510 --> 04:51.750
+That's going to happen over inside the terminal.
+
+04:51.850 --> 04:55.430
+I'm going to shut down the server and run and get status.
+
+04:55.450 --> 04:59.970
+This is going to show me all of the changes to my repository as of the last commit.
+
+04:59.980 --> 05:01.660
+I have two modified files.
+
+05:01.660 --> 05:05.560
+The server file and the header file and I have my brand new projects file.
+
+05:05.560 --> 05:07.270
+All of this looks great.
+
+05:07.270 --> 05:13.090
+I want to add all of this to the next commit so I can use a get ad with the DOT to do just that.
+
+05:13.090 --> 05:18.040
+Now before I actually make the commit I do like to test that the proper things got added by running
+
+05:18.040 --> 05:22.240
+get status right here I can see my changes to be committed are showing up in green.
+
+05:22.240 --> 05:24.250
+Everything looks great.
+
+05:24.250 --> 05:27.970
+Next up we're going to run and get commit to actually make the commit.
+
+05:27.970 --> 05:33.250
+This is going to save all of the changes into the get repository a message for this one would be something
+
+05:33.250 --> 05:42.320
+like add project page with a commit made the next thing you needed to do was push up to get up.
+
+05:42.320 --> 05:45.540
+This is going to back our code up and let others collaborate on it.
+
+05:45.560 --> 05:48.290
+I'm going to use get push to do just that.
+
+05:48.290 --> 05:52.710
+Remember we can leave off the origin remote as origin is the default remote.
+
+05:52.730 --> 05:54.880
+So if you leave off a remote it'll just use that.
+
+05:54.880 --> 06:01.400
+Anyways with our get hub repository updated the last thing to do is deploy to Heroku and we do that
+
+06:01.520 --> 06:08.040
+by pushing up the get repository using get push to the Heroku remote.
+
+06:08.340 --> 06:14.790
+When we do this we get our long list of logs as the Heroku server goes through the process of installing
+
+06:14.790 --> 06:18.600
+our A.P.M. modules building the app and actually deploying it.
+
+06:18.600 --> 06:22.830
+Once it's done we're going to get brought back to the terminal like we are here and then we can open
+
+06:22.830 --> 06:24.320
+up the you are l in the browser.
+
+06:24.480 --> 06:30.430
+Now I can copy it from here or run her Roku open since I already have a tab open with you or Alan place.
+
+06:30.480 --> 06:32.640
+I'm going to simply give it a refresh.
+
+06:32.670 --> 06:37.260
+Now you might have a little delay as you refresh your app sometimes starting up the app right after
+
+06:37.260 --> 06:41.230
+a new app was deployed can take about 10 to 15 seconds.
+
+06:41.280 --> 06:45.330
+That's only going to happen as you first visit it other times where you click the refresh button.
+
+06:45.330 --> 06:47.700
+It should reload instantly.
+
+06:47.700 --> 06:49.760
+Now we have the projects page and if I visit.
+
+06:49.770 --> 06:51.250
+Everything looks awesome.
+
+06:51.330 --> 06:56.210
+The nav bar is working great and the projects page is indeed rendering at forward slash projects.
+
+06:56.270 --> 06:58.410
+With this in place we are now done.
+
+06:58.470 --> 07:00.690
+We've gone through the process of adding a new feature.
+
+07:00.780 --> 07:06.590
+Testing it locally making a get commit pushing it up to get help and deploying it to Heroku.
+
+07:06.630 --> 07:11.340
+We now have a workflow for building a real world web applications using knode.
+
+07:11.340 --> 07:17.850
+J.S. this also brings it close to this section in this section you learn about Express and how it can
+
+07:17.850 --> 07:20.300
+be used to easily create Web sites.
+
+07:20.370 --> 07:26.210
+We can make a web site that returns HGL now or we can make an h t t p u r l that returns some Jason
+
+07:26.220 --> 07:26.880
+data.
+
+07:26.880 --> 07:31.140
+This is going to let us create all sorts of applications which we'll be doing throughout the rest of
+
+07:31.140 --> 07:31.990
+the course.
+
+07:32.040 --> 07:35.510
+You also learn about get it get hub Ben Heroku these are the tools.
+
+07:35.520 --> 07:40.880
+I prefer to use when I'm creating applications I like to use get because it's super popular.
+
+07:40.890 --> 07:43.240
+It's basically the only choice these days.
+
+07:43.260 --> 07:48.180
+I like to use GET HOW because it has a great user interface it has a ton of awesome features and pretty
+
+07:48.180 --> 07:49.920
+much everyone else is using it too.
+
+07:49.920 --> 07:55.770
+There's a great community and I like to use Heroku because it is just dead simple to deploy new versions
+
+07:55.770 --> 07:57.420
+of your application.
+
+07:57.480 --> 08:03.060
+You can swap out any of these tools with any other tools you can use websites like Amazon Web Services
+
+08:03.060 --> 08:03.780
+to host.
+
+08:03.840 --> 08:06.730
+You could use bitbucket as your hub alternative.
+
+08:06.750 --> 08:09.210
+These are perfectly fine solutions.
+
+08:09.210 --> 08:12.580
+All that really matters is you have some tools that are working for you.
+
+08:12.600 --> 08:18.300
+You have a repository backed up somewhere whether it's get Hobb or bitbucket and you have an easy way
+
+08:18.300 --> 08:19.040
+to deploy.
+
+08:19.140 --> 08:23.150
+So you can make changes quickly and get them out to your users fast.
+
+08:23.190 --> 08:25.350
+That is it for this section is stay tuned.
+
+08:25.350 --> 08:27.030
+I will see you next time
